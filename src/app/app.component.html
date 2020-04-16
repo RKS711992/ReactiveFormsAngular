@@ -1,0 +1,158 @@
+<div class="container-fluid">
+  <h2>Resgistration Form</h2>
+  <form [formGroup]="userResgistration" (ngSubmit)="onSubmit()">
+    <!-- {{ userResgistration.value | json }} -->
+
+    <div class="form-group">
+      <label for="userName">Username</label>
+      <input
+        formControlName="userName"
+        [class.is-invalid]="
+          userResgistration.get('userName').inValid &&
+          userResgistration.get('userName').touched
+        "
+        type="text"
+        name="userName"
+        id=""
+        class="form-control"
+      />
+      <div
+        *ngIf="
+          userResgistration.get('userName').invalid &&
+          userResgistration.get('userName').touched
+        "
+      >
+        <small
+          *ngIf="userResgistration.get('userName').errors?.required"
+          class="text-danger"
+          >Username is required!!!</small
+        >
+        <small
+          *ngIf="userResgistration.get('userName').errors?.minlength"
+          class="text-danger"
+          >Username must be at least 3 characters long!!!</small
+        >
+        <small
+          *ngIf="userResgistration.get('userName').errors?.forbiddenName"
+          class="text-danger"
+          >Username
+          {{ userResgistration.get("userName").errors?.forbiddenName.value }}
+          can't be used !!!</small
+        >
+      </div>
+      <!-- <small
+        [class.d-none]="
+          userResgistration.get('userName').valid ||
+          userResgistration.get('userName').untouched
+        "
+        class="text-danger"
+        >Username is required!!!</small
+      > -->
+    </div>
+
+    <div class="form-group">
+      <label for="email">Email</label>
+      <input
+        formControlName="email"
+        [class.is-invalid]="email.invalid && email.touched"
+        type="text"
+        name="userName"
+        id=""
+        class="form-control"
+      />
+      <small [class.d-none]="email.valid || email.untouched" class="text-danger"
+        >Email is required!!!</small
+      >
+    </div>
+
+    <div class="form-check mb-6">
+      <input
+        formControlName="subscribe"
+        type="checkbox"
+        name="subscribe"
+        id=""
+        class="form-check-input ml-1"
+      />
+      <label class="form-check-label">Send Me Promotional Offers</label>
+    </div>
+
+    <div class="form-group">
+      <label for="password">Password</label>
+      <input
+        formControlName="password"
+        type="password"
+        name="password"
+        id=""
+        class="form-control"
+      />
+    </div>
+
+    <div class="form-group">
+      <label for="confirmPassword">Confirm Password</label>
+      <input
+        type="password"
+        formControlName="confirmPassword"
+        [class.is-invalid]="userResgistration.errors?.mismatch"
+        name="confirmPassword"
+        id=""
+        class="form-control"
+      />
+      <small *ngIf="userResgistration.errors?.mismatch" class="text-danger"
+        >Passwords Do Not Match!!!</small
+      >
+    </div>
+    <div formGroupName="address">
+      <div class="form-group">
+        <label for="state">State</label>
+        <input
+          type="text"
+          formControlName="state"
+          name="state"
+          id=""
+          class="form-control"
+        />
+      </div>
+      <div class="form-group">
+        <label for="city">City</label>
+        <input
+          type="text"
+          formControlName="city"
+          name="city"
+          id=""
+          class="form-control"
+        />
+      </div>
+      <div class="form-group">
+        <label for="postalCode">PostalCode</label>
+        <input
+          type="text"
+          formControlName="postalCode"
+          name="postalCode"
+          id=""
+          class="form-control"
+        />
+      </div>
+    </div>
+    <button
+      [disabled]="!userResgistration.valid"
+      type="submit"
+      class="btn btn-primary"
+    >
+      Register
+    </button>
+    <!-- <button
+      type="submit"
+      class="btn btn-warning ml-2"
+      (click)="loadAPIWithSetValue()"
+    >
+      LOAD API WITH SET VALUES
+    </button>
+    <button
+      type="submit"
+      class="btn btn-success ml-2"
+      (click)="loadAPIWithPatchValue()"
+    >
+      LOAD API WITH PATCH VALUES
+    </button> -->
+  </form>
+</div>
